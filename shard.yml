@@ -16,3 +16,10 @@ dependencies:
     version: 0.3.0
   rate_limiter:
     github: z64/rate_limiter
+  kemal:
+    github: kemalcr/kemal
+
+development_dependencies:
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    branch: master

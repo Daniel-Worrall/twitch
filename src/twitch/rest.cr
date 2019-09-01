@@ -2,17 +2,22 @@ require "http/client"
 require "json"
 require "oauth2"
 require "./mappings/*"
+require "./requests"
 
 # Mixin providing REST API functionality
-module Twitch::REST
-  API_HOST = "api.twitch.tv"
 
-  # TODO: OAuth2 facilities
-  OAUTH2_API_HOST = "id.twitch.tv"
+module Twitch::REST
+  property client_id : String?
+
+  API_HOST = "api.twitch.tv"
 
   @http_client = HTTP::Client.new(API_HOST, tls: true)
 
-  # Issue a request to the Twitch API
+  def authed_request(request, *, client_id : String? = nil)
+    request.headers["client-id"] = client_id if client_id
+    request(request)
+  end
+
   def request(request : HTTP::Request)
     @logger.info("[HTTP OUT] #{request.method} #{request.resource}")
     @logger.debug("[HTTP BODY] #{request.body}") if @logger.debug? && request.body
@@ -155,5 +160,9 @@ module Twitch::REST
     assert_scope(Scope::UserEdit)
     response = request(Request.update_user(description))
     parse_single(User, from: response.body)
+  end
+
+  def webhook_subscribe(callback, topic, lease_seconds : Int32? = nil, secret : String? = nil, *, unsubscribe = false)
+    authed_request(Request.subscribe_to_event(callback, "#{"un" if unsubscribe}subscribe", topic, lease_seconds, secret), client_id: @client_id)
   end
 end
