@@ -30,7 +30,7 @@ class RateLimiter(T)
       false
     end
 
-    def clean_queue(queue, rate_limit_time = Time.now)
+    def clean_queue(queue, rate_limit_time = Time.utc)
       while queue[0] < rate_limit_time
         queue.shift
       end

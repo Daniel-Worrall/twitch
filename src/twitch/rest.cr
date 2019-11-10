@@ -55,7 +55,7 @@ module Twitch::REST
   # NOTE: The URL is valid for 1 minute.
   def get_game_analytics(game_id : Int32)
     assert_scope(Scope::AnalyticsReadGames)
-    resposne = request(Request.get_game_analytics(nil, nil, game_id))
+    response = request(Request.get_game_analytics(nil, nil, game_id))
     parse_single(GameAnalytics, from: response.body)
   end
 

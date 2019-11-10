@@ -2,14 +2,14 @@ require "../spec_helper"
 
 describe Twitch::Request do
   it ".get_bits_leaderboard" do
-    time = Time.new(2018, 1, 1)
+    time = Time.local(2018, 1, 1)
     request = Twitch::Request.get_bits_leaderboard(
       count: 10,
       period: Twitch::Request::Period::Day,
       started_at: time,
       user_id: 123)
 
-    time_str = URI.escape(Time::Format::ISO_8601_DATE_TIME.format(time))
+    time_str = URI.encode_www_form(Time::Format::ISO_8601_DATE_TIME.format(time))
     request.method.should eq "GET"
     request.path.should eq "/helix/bits/leaderboard"
     request.query.should eq "count=10&period=day&started_at=#{time_str}&user_id=123"
