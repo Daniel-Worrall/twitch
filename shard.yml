@@ -26,3 +26,6 @@ development_dependencies:
   spec-kemal:
     github: kemalcr/spec-kemal
     branch: master
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 0.10.1
