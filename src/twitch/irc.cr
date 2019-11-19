@@ -53,7 +53,7 @@ class Twitch::IRC::Client
     @tags = tags
   end
 
-  def dispatch(message : FastIRC::Message)
+  private def dispatch(message : FastIRC::Message)
     puts "> " + message.to_s if log_mode
     case message.command
     when "PING"
