@@ -34,7 +34,7 @@ class Twitch::IRC::Client
     raw_write("PRIVMSG", [channel, message])
   end
 
-  def on_message(&@on_message : FastIRC::Message ->)
+  def on_message(&@on_message : Message ->)
   end
 
   def join_channel(channel : String)
@@ -59,7 +59,7 @@ class Twitch::IRC::Client
     when "PING"
       pong
     when "PRIVMSG"
-      @on_message.try &.call(message)
+      @on_message.try &.call(Message.new(message))
     end
   end
 
