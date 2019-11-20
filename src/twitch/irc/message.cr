@@ -1,4 +1,4 @@
-class Twitch::IRC::Message
+struct Twitch::IRC::Message
   getter channel : String { params[0].lstrip('#') }
   getter content : String { params[1] }
   getter? mod : Bool { tags["mod"] == "1" }
