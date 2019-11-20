@@ -47,6 +47,14 @@ describe Twitch::IRC::Message do
     end
   end
 
+  describe "#user_id" do
+    it "parses" do
+      tags = {"user-id" => "20925965"} of String => String?
+      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], tags: tags)
+      Twitch::IRC::Message.new(message).user_id.should eq(20925965)
+    end
+  end
+
   describe "#username" do
     it "parses" do
       message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], prefix: prefix)
