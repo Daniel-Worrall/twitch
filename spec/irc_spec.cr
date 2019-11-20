@@ -25,25 +25,25 @@ describe Twitch::IRC::Message do
     it "handles true" do
       tags = {"badges" => "moderator/1", "mod" => "1"} of String => String?
       message = FastIRC::Message.new("PRIVMSG", ["#notnekkalucifer", "testing message"], tags: tags)
-      Twitch::IRC::Message.new(message).mod?.should eq(true)
+      Twitch::IRC::Message.new(message).mod?.should be_true
     end
 
     it "handles false" do
       tags = {"badges" => "broadcaster/1,subscriber/0", "mod" => "0"} of String => String?
       message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], tags: tags)
-      Twitch::IRC::Message.new(message).mod?.should eq(false)
+      Twitch::IRC::Message.new(message).mod?.should be_false
     end
   end
 
   describe "#owner?" do
     it "handles true" do
       message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], prefix: prefix)
-      Twitch::IRC::Message.new(message).owner?.should eq(true)
+      Twitch::IRC::Message.new(message).owner?.should be_true
     end
 
     it "handles false" do
       message = FastIRC::Message.new("PRIVMSG", ["#notnekkalucifer", "testing message"], prefix: prefix)
-      Twitch::IRC::Message.new(message).owner?.should eq(false)
+      Twitch::IRC::Message.new(message).owner?.should be_false
     end
   end
 
