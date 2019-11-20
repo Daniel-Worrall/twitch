@@ -7,7 +7,7 @@ class RateLimiter(T)
       @bucket = {} of K => Deque(Time)
     end
 
-    def rate_limited?(key : K, rate_limit_time = Time.now)
+    def rate_limited?(key : K, rate_limit_time = Time.utc)
       queue = @bucket[key]?
 
       unless queue
