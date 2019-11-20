@@ -14,15 +14,10 @@ end
 describe Twitch::IRC::Message do
   prefix = FastIRC::Prefix.new(source: "nekkalucifer", user: "nekkalucifer", host: "nekkalucifer.tmi.twitch.tv")
 
-  describe "#owner?" do
-    it "handles true" do
-      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], prefix: prefix)
-      Twitch::IRC::Message.new(message).owner?.should eq(true)
-    end
-
-    it "handles false" do
-      message = FastIRC::Message.new("PRIVMSG", ["#notnekkalucifer", "testing message"], prefix: prefix)
-      Twitch::IRC::Message.new(message).owner?.should eq(false)
+  describe "#channel" do
+    it "returns without the #" do
+      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"])
+      Twitch::IRC::Message.new(message).channel.should eq("nekkalucifer")
     end
   end
 
@@ -40,14 +35,19 @@ describe Twitch::IRC::Message do
     end
   end
 
-  describe "channel" do
-    it "returns without the #" do
-      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"])
-      Twitch::IRC::Message.new(message).channel.should eq("nekkalucifer")
+  describe "#owner?" do
+    it "handles true" do
+      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], prefix: prefix)
+      Twitch::IRC::Message.new(message).owner?.should eq(true)
+    end
+
+    it "handles false" do
+      message = FastIRC::Message.new("PRIVMSG", ["#notnekkalucifer", "testing message"], prefix: prefix)
+      Twitch::IRC::Message.new(message).owner?.should eq(false)
     end
   end
 
-  describe "username" do
+  describe "#username" do
     it "parses" do
       message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], prefix: prefix)
       Twitch::IRC::Message.new(message).username.should eq("nekkalucifer")
