@@ -41,7 +41,7 @@ class Twitch::IRC::Client
     return unless @connected
     wait = limiter.rate_limited?(:join, "")
     sleep(wait) if wait.is_a?(Time::Span)
-    raw_write("JOIN", ["##{channel}"])
+    raw_write("JOIN", ["#{channel}"])
   end
 
   def leave_channel(channel : String)
