@@ -1,4 +1,5 @@
 struct Twitch::IRC::Message
+  getter channel_id : Int32 { tags["room-id"].not_nil!.to_i }
   getter channel : String { params[0].lstrip('#') }
   getter content : String { params[1] }
   getter? mod : Bool { tags["mod"] == "1" }
