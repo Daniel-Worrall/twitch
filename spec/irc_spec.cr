@@ -23,9 +23,9 @@ describe Twitch::IRC::Message do
   end
 
   describe "#channel" do
-    it "returns without the #" do
+    it "returns" do
       message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"])
-      Twitch::IRC::Message.new(message).channel.should eq("nekkalucifer")
+      Twitch::IRC::Message.new(message).channel.should eq("#nekkalucifer")
     end
   end
 
