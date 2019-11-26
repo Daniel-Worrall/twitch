@@ -14,6 +14,14 @@ end
 describe Twitch::IRC::Message do
   prefix = FastIRC::Prefix.new(source: "nekkalucifer", user: "nekkalucifer", host: "nekkalucifer.tmi.twitch.tv")
 
+  describe "#channel_id" do
+    it "parses" do
+      tags = {"room-id" => "20925965"} of String => String?
+      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], tags: tags)
+      Twitch::IRC::Message.new(message).channel_id.should eq(20925965)
+    end
+  end
+
   describe "#channel" do
     it "returns without the #" do
       message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"])
