@@ -29,6 +29,13 @@ describe Twitch::IRC::Message do
     end
   end
 
+  describe "#content" do
+    it "parses" do
+      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"])
+      Twitch::IRC::Message.new(message).content.should eq("testing message")
+    end
+  end
+
   describe "#mod?" do
     it "handles true" do
       tags = {"badges" => "moderator/1", "mod" => "1"} of String => String?
