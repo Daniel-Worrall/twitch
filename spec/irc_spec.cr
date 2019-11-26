@@ -37,12 +37,14 @@ describe Twitch::IRC::Message do
 
   describe "#owner?" do
     it "handles true" do
-      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], prefix: prefix)
+      tags = {"room-id" => "20925965", "user-id" => "20925965"} of String => String?
+      message = FastIRC::Message.new("PRIVMSG", ["#nekkalucifer", "testing message"], prefix: prefix, tags: tags)
       Twitch::IRC::Message.new(message).owner?.should be_true
     end
 
     it "handles false" do
-      message = FastIRC::Message.new("PRIVMSG", ["#notnekkalucifer", "testing message"], prefix: prefix)
+      tags = {"room-id" => "30925965", "user-id" => "20925965"} of String => String?
+      message = FastIRC::Message.new("PRIVMSG", ["#notnekkalucifer", "testing message"], prefix: prefix, tags: tags)
       Twitch::IRC::Message.new(message).owner?.should be_false
     end
   end

@@ -3,7 +3,7 @@ struct Twitch::IRC::Message
   getter channel : String { params[0].lstrip('#') }
   getter content : String { params[1] }
   getter? mod : Bool { tags["mod"] == "1" }
-  getter? owner : Bool { username == channel }
+  getter? owner : Bool { user_id == channel_id }
   getter user_id : Int32 { tags["user-id"].not_nil!.to_i }
   getter username : String { prefix.source }
 
