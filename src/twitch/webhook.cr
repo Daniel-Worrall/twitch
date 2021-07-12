@@ -1,6 +1,5 @@
 require "kemal"
 require "openssl/hmac"
-require "logger"
 require "json"
 require "./mappings/*"
 require "onyx-eda/channel/memory"
@@ -20,7 +19,7 @@ class Twitch::Webhook
     alias All_Webhooks = {{CALLBACKS.values.map(&.id).join(" | ").id}}
   {% end %}
 
-  def initialize(@secret : String = "", @logger = Logger.new(STDOUT))
+  def initialize(@secret : String = "", @logger = Log.new(STDOUT))
     @channel = Onyx::EDA::Channel::Memory.new
 
     get "/callback" do |env|

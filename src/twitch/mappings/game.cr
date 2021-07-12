@@ -1,7 +1,6 @@
-struct Twitch::Game
-  JSON.mapping(
-    id: {type: Int32, converter: IDConverter},
-    name: String,
-    box_art_url: String
-  )
+record Twitch::Game,
+  id : {type: Int32, converter: IDConverter},
+  name : String,
+  box_art_url : String do
+  include JSON::Serializable
 end

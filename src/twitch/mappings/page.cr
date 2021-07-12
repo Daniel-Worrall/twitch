@@ -1,17 +1,17 @@
 module Twitch
   # :nodoc:
-  struct Page(T)
-    JSON.mapping(
-      total: Int32?,
-      data: Array(T),
-      pagination: Pagination
-    )
+  record Page(T),
+    total : Int32?,
+    data : Array(T),
+    pagination : Pagination do
+    include JSON::Serializable
 
     delegate cursor, to: pagination
   end
 
   # :nodoc:
-  struct Pagination
-    JSON.mapping(cursor: String?)
+  record Pagination,
+    cursor : String? do
+    include JSON::Serializable
   end
 end

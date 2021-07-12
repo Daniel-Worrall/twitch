@@ -1,12 +1,10 @@
 require "onyx-eda/event"
 
-struct Twitch::WebhookEvent(T)
+record Twitch::WebhookEvent(T),
+  data : Array(T),
+  options : Hash(String, String) = {} of String => String do
+  include JSON::Serializable
   include Onyx::EDA::Event
-
-  JSON.mapping(
-    data: Array(T),
-    options: {type: Hash(String, String), default: {} of String => String}
-  )
 
   def initialize(event : WebhookEvent)
     @data = event.data.map(&.as(T))

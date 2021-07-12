@@ -1,4 +1,3 @@
-require "logger"
 require "./rest"
 
 # Client for interacting with the Twitch API
@@ -8,7 +7,7 @@ class Twitch::Client
 
   @scope : Scope = Scope::None
 
-  def initialize(@token : OAuth2::AccessToken, @logger = Logger.new(STDOUT))
+  def initialize(@token : OAuth2::AccessToken, @logger = Log.new(STDOUT))
     @token.authenticate(@http_client)
     @token.scope.try do |scope|
       # TODO: Don't rely on '+' probably, regular whitepsace may be expected

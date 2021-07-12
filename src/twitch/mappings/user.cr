@@ -1,4 +1,16 @@
-struct Twitch::User
+record Twitch::User,
+  broadcaster_type : String,
+  description : String,
+  display_name : String,
+  email : String?,
+  id : {type: Int32, converter: IDConverter},
+  login : String,
+  offline_image_url : String,
+  profile_image_url : String,
+  type : Type,
+  view_count : Int32 do
+  include JSON::Serializable
+
   enum Type
     Normal
     Staff
@@ -14,17 +26,4 @@ struct Twitch::User
       end
     end
   end
-
-  JSON.mapping(
-    broadcaster_type: String,
-    description: String,
-    display_name: String,
-    email: String?,
-    id: {type: Int32, converter: IDConverter},
-    login: String,
-    offline_image_url: String,
-    profile_image_url: String,
-    type: Type,
-    view_count: Int32
-  )
 end

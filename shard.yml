@@ -6,14 +6,14 @@ authors:
   - snapcase <snapcase@octalzeroes.com>
   - Zac Nowicki <zachnowicki@gmail.com>
 
-crystal: 0.31.1
+crystal: 1.0.0
 
 license: MIT
 
 dependencies:
   fast_irc:
     github: rx14/fast_irc.cr
-    version: 0.3.0
+    version: ~> 0.3.4
   rate_limiter:
     github: z64/rate_limiter
   kemal:
@@ -28,4 +28,4 @@ development_dependencies:
     branch: master
   ameba:
     github: crystal-ameba/ameba
-    version: ~> 0.10.1
+    version: ~> 0.14.2
